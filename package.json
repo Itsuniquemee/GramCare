@@ -1,0 +1,17 @@
+{
+  "name": "gramcare",
+  "version": "1.0.0",
+  "description": "GRAMCARE — Rural Healthcare Command Center",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "leaflet": "^1.9.4",
+    "peerjs": "^1.5.5",
+    "socket.io": "^4.8.3"
+  }
+}

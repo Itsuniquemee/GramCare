@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GramCare — Sign In</title>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&f[]=gambetta@400,400i,500,600,700,700i&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#F5F1EC;--charcoal:#3D3D3D;--sage:#9BA89F;--terra:#C17A4D;--sand:#E8E0D5;--white:#FFFFFF}
+html,body{height:100%;font-family:'Satoshi',sans-serif;background:var(--cream);color:var(--charcoal);-webkit-font-smoothing:antialiased}
+
+.noise{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+@keyframes morph{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+.container{display:flex;min-height:100vh}
+
+/* Left — branding */
+.brand-side{flex:1;background:var(--sand);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:48px}
+.brand-blob1{position:absolute;width:320px;height:320px;background:rgba(155,168,159,.25);animation:morph 8s ease-in-out infinite;top:10%;left:10%}
+.brand-blob2{position:absolute;width:260px;height:260px;background:rgba(193,122,77,.2);animation:morph 8s ease-in-out infinite 3s;bottom:15%;right:10%}
+.brand-blob3{position:absolute;width:200px;height:200px;background:rgba(155,168,159,.15);animation:morph 8s ease-in-out infinite 5s;top:50%;left:50%;transform:translate(-50%,-50%)}
+.brand-content{position:relative;z-index:2;text-align:center;max-width:400px}
+.brand-icon{font-size:72px;margin-bottom:24px;animation:float 6s ease-in-out infinite}
+.brand-content h2{font-family:'Gambetta',serif;font-size:32px;font-weight:700;margin-bottom:12px;line-height:1.2}
+.brand-content h2 em{font-style:italic;color:var(--terra)}
+.brand-content p{font-size:15px;color:#777;line-height:1.7}
+.brand-features{margin-top:32px;display:flex;flex-direction:column;gap:12px;text-align:left}
+.brand-feat{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--charcoal);font-weight:500}
+.brand-feat span:first-child{width:32px;height:32px;background:var(--white);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+
+/* Right — form */
+.form-side{flex:1;display:flex;align-items:center;justify-content:center;padding:48px;background:var(--white)}
+.form-wrapper{width:100%;max-width:420px;animation:fadeUp .6s ease}
+.form-back{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:#888;text-decoration:none;margin-bottom:32px;transition:color .3s}
+.form-back:hover{color:var(--charcoal)}
+.form-header{margin-bottom:36px}
+.form-header h1{font-family:'Gambetta',serif;font-size:32px;font-weight:700;margin-bottom:8px}
+.form-header p{font-size:15px;color:#888;line-height:1.6}
+
+.form-body{display:flex;flex-direction:column;gap:24px}
+
+/* Input */
+.input-group{position:relative}
+.input-group label{display:block;font-size:13px;font-weight:600;color:var(--charcoal);margin-bottom:8px}
+.input-group input{width:100%;padding:14px 16px;font-family:'Satoshi',sans-serif;font-size:15px;color:var(--charcoal);background:var(--cream);border:1.5px solid transparent;border-radius:12px;outline:none;transition:all .3s}
+.input-group input:focus{border-color:var(--terra);background:var(--white);box-shadow:0 0 0 4px rgba(193,122,77,.1)}
+.input-group input::placeholder{color:#bbb}
+.pw-toggle{position:absolute;right:14px;top:38px;background:none;border:none;cursor:pointer;color:#aaa;padding:4px;transition:color .2s}
+.pw-toggle:hover{color:var(--charcoal)}
+.pw-toggle svg{width:20px;height:20px}
+
+.remember-row{display:flex;justify-content:space-between;align-items:center}
+.checkbox-label{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--charcoal);font-weight:500;user-select:none}
+.checkbox-label input{display:none}
+.check-box{width:20px;height:20px;border:1.5px solid var(--sand);border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;background:var(--cream)}
+.checkbox-label input:checked+.check-box{background:var(--terra);border-color:var(--terra)}
+.check-box svg{width:14px;height:14px;color:white;opacity:0;transform:scale(0);transition:all .2s cubic-bezier(.68,-.55,.27,1.55)}
+.checkbox-label input:checked+.check-box svg{opacity:1;transform:scale(1)}
+.forgot{font-size:14px;color:var(--terra);text-decoration:none;font-weight:500;transition:opacity .2s}
+.forgot:hover{opacity:.8}
+
+.submit-btn{width:100%;padding:16px;background:var(--terra);color:var(--cream);border:none;border-radius:50px 50px 50px 12px;font-family:'Satoshi',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.submit-btn:hover{border-radius:50px 12px 50px 50px;transform:translateY(-2px);box-shadow:0 8px 24px rgba(193,122,77,.3)}
+.submit-btn:active{transform:scale(.98)}
+
+.divider{display:flex;align-items:center;gap:16px;color:#bbb;font-size:13px;font-weight:500}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--sand)}
+
+.social-btns{display:flex;gap:12px}
+.social-btn{flex:1;padding:14px;background:var(--cream);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Satoshi',sans-serif;font-size:14px;font-weight:500;color:var(--charcoal);transition:all .2s}
+.social-btn:hover{background:var(--sand)}
+.social-btn:active{transform:scale(.98)}
+.social-btn svg{width:20px;height:20px}
+
+.form-footer{margin-top:28px;text-align:center;font-size:15px;color:#888}
+.form-footer a{color:var(--terra);font-weight:600;text-decoration:none;position:relative}
+.form-footer a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--terra);transition:width .3s}
+.form-footer a:hover::after{width:100%}
+
+@media(max-width:900px){.container{flex-direction:column}.brand-side{min-height:300px;padding:32px}.form-side{padding:32px 24px}.brand-blob1,.brand-blob2{width:180px;height:180px}}
+@media(max-width:480px){.brand-side{min-height:240px}.brand-content h2{font-size:24px}.brand-icon{font-size:48px}.brand-features{display:none}.form-header h1{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="container">
+
+<div class="brand-side">
+  <div class="brand-blob1"></div>
+  <div class="brand-blob2"></div>
+  <div class="brand-blob3"></div>
+  <div class="brand-content">
+    <div class="brand-icon">🏥</div>
+    <h2>Healthcare without <em>boundaries</em></h2>
+    <p>Access doctors, medicines, and health records — all from your village.</p>
+    <div class="brand-features">
+      <div class="brand-feat"><span>📅</span>Book appointments instantly</div>
+      <div class="brand-feat"><span>🔬</span>AI-powered symptom analysis</div>
+      <div class="brand-feat"><span>📋</span>Offline health records</div>
+      <div class="brand-feat"><span>🌐</span>Works in Hindi & Punjabi</div>
+    </div>
+  </div>
+</div>
+
+<div class="form-side">
+  <div class="form-wrapper">
+    <a href="/" class="form-back">← Back to home</a>
+    <div class="form-header">
+      <h1 id="formTitle">Welcome back</h1>
+      <p id="formDesc">Sign in to access your health dashboard.</p>
+    </div>
+
+    <form class="form-body" id="authForm" onsubmit="handleAuth(event)">
+      <div class="input-group" id="nameGroup" style="display:none">
+        <label>Full Name</label>
+        <input type="text" id="nameInput" placeholder="Gurpreet Kaur">
+      </div>
+      <div class="input-group" id="roleGroup" style="display:none">
+        <label>I am a</label>
+        <div style="display:flex;gap:12px;margin-top:4px">
+          <label class="role-opt" style="flex:1;display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--cream);border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:all .2s;font-size:14px;font-weight:500">
+            <input type="radio" name="role" value="patient" checked style="display:none"><span class="role-icon" style="font-size:20px">🧑</span>Patient
+          </label>
+          <label class="role-opt" style="flex:1;display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--cream);border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:all .2s;font-size:14px;font-weight:500">
+            <input type="radio" name="role" value="doctor" style="display:none"><span class="role-icon" style="font-size:20px">👨‍⚕️</span>Doctor
+          </label>
+        </div>
+      </div>
+      <div class="input-group" id="villageGroup" style="display:none">
+        <label>Village / City</label>
+        <input type="text" id="villageInput" placeholder="Nabha">
+      </div>
+      <div class="input-group">
+        <label>Email or Phone</label>
+        <input type="text" id="emailInput" placeholder="you@example.com" required>
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="pwInput" placeholder="••••••••" required>
+        <button type="button" class="pw-toggle" onclick="togglePw()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+
+      <div class="remember-row" id="rememberRow">
+        <label class="checkbox-label">
+          <input type="checkbox">
+          <span class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          Remember me
+        </label>
+        <a href="#" class="forgot">Forgot password?</a>
+      </div>
+
+      <div id="authError" style="display:none;padding:12px;background:#fef2f2;color:#ef4444;border-radius:10px;font-size:14px;text-align:center"></div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Sign In</button>
+
+      <div class="divider">or continue with</div>
+      <div class="social-btns">
+        <button type="button" class="social-btn" onclick="socialAuth()">
+          <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Google
+        </button>
+        <button type="button" class="social-btn" onclick="socialAuth()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          Phone OTP
+        </button>
+      </div>
+    </form>
+
+    <div class="form-footer" id="formFooter">
+      Don't have an account? <a href="#" onclick="toggleMode(event)">Sign Up</a>
+    </div>
+    <div style="margin-top:16px;text-align:center;font-size:12px;color:#aaa">
+      <strong>Demo:</strong> gurpreet@gramcare.in / password123 (patient)<br>
+      harpreet@gramcare.in / doctor123 (doctor)
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+let isSignup=new URLSearchParams(window.location.search).get('mode')==='signup';
+if(isSignup)setSignupMode();
+
+// Role selector styling
+document.querySelectorAll('.role-opt input').forEach(r=>{
+  r.addEventListener('change',()=>{
+    document.querySelectorAll('.role-opt').forEach(l=>l.style.border='1.5px solid transparent');
+    r.closest('.role-opt').style.border='1.5px solid var(--terra)';
+  });
+  if(r.checked)r.closest('.role-opt').style.border='1.5px solid var(--terra)';
+});
+
+function toggleMode(e){e?.preventDefault();isSignup=!isSignup;isSignup?setSignupMode():setLoginMode()}
+function setSignupMode(){
+  document.getElementById('formTitle').textContent='Create your account';
+  document.getElementById('formDesc').textContent='Join GramCare to access rural healthcare.';
+  document.getElementById('nameGroup').style.display='block';
+  document.getElementById('roleGroup').style.display='block';
+  document.getElementById('villageGroup').style.display='block';
+  document.getElementById('rememberRow').style.display='none';
+  document.getElementById('submitBtn').textContent='Create Account';
+  document.getElementById('formFooter').innerHTML='Already have an account? <a href="#" onclick="toggleMode(event)">Sign In</a>';
+}
+function setLoginMode(){
+  document.getElementById('formTitle').textContent='Welcome back';
+  document.getElementById('formDesc').textContent='Sign in to access your health dashboard.';
+  document.getElementById('nameGroup').style.display='none';
+  document.getElementById('roleGroup').style.display='none';
+  document.getElementById('villageGroup').style.display='none';
+  document.getElementById('rememberRow').style.display='flex';
+  document.getElementById('submitBtn').textContent='Sign In';
+  document.getElementById('formFooter').innerHTML='Don\'t have an account? <a href="#" onclick="toggleMode(event)">Sign Up</a>';
+}
+function togglePw(){const p=document.getElementById('pwInput');p.type=p.type==='password'?'text':'password'}
+function showError(msg){const el=document.getElementById('authError');el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',4000)}
+
+async function handleAuth(e){
+  e.preventDefault();
+  const btn=document.getElementById('submitBtn');
+  const email=document.getElementById('emailInput').value.trim();
+  const pw=document.getElementById('pwInput').value;
+  btn.textContent=isSignup?'Creating...':'Signing in...';btn.style.opacity='.7';
+  try{
+    let user;
+    if(isSignup){
+      const name=document.getElementById('nameInput').value.trim();
+      const role=document.querySelector('input[name="role"]:checked').value;
+      const village=document.getElementById('villageInput').value.trim();
+      if(!name){showError('Please enter your name');btn.textContent='Create Account';btn.style.opacity='1';return}
+      const r=await fetch('/api/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,password:pw,role,village})});
+      const data=await r.json();
+      if(!r.ok){showError(data.error);btn.textContent='Create Account';btn.style.opacity='1';return}
+      user=data;
+    }else{
+      const r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})});
+      const data=await r.json();
+      if(!r.ok){showError(data.error);btn.textContent='Sign In';btn.style.opacity='1';return}
+      user=data;
+    }
+    localStorage.setItem('gramcare_user',JSON.stringify(user));
+    window.location.href='/dashboard.html';
+  }catch(err){showError('Connection error. Try again.');btn.textContent=isSignup?'Create Account':'Sign In';btn.style.opacity='1'}
+}
+function socialAuth(){localStorage.setItem('gramcare_user',JSON.stringify({id:'USR-001',name:'Gurpreet Kaur',email:'gurpreet@gramcare.in',role:'patient',village:'Nabha'}));setTimeout(()=>{window.location.href='/dashboard.html'},800)}
+</script>
+</body>
+</html>
