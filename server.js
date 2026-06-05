@@ -15,7 +15,12 @@ const DB_PATH = path.join(__dirname, 'db.json');
 
 function loadDB() {
   if (fs.existsSync(DB_PATH)) {
-    return JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+    try {
+      return JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+    } catch (error) {
+      console.error('Failed to parse db.json, using default DB:', error.message);
+      return getDefaultDB();
+    }
   }
   return getDefaultDB();
 }
