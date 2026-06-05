@@ -258,7 +258,46 @@
       }
     }
   ],
-  "appointments": [],
+  "appointments": [
+    {
+      "id": "APT-1638",
+      "patientId": null,
+      "doctorId": "DOC-001",
+      "doctorName": "Dr. Harpreet Kaur",
+      "specialty": "General Medicine",
+      "patientName": "Manas",
+      "slot": "10:00",
+      "reason": "Fever",
+      "village": "",
+      "phone": "",
+      "status": "CONFIRMED",
+      "bookedAt": "2026-05-20T07:56:47.858Z",
+      "date": "2026-05-20",
+      "notes": "",
+      "vitals": {},
+      "duration": null,
+      "completedAt": null
+    },
+    {
+      "id": "APT-2894",
+      "patientId": null,
+      "doctorId": "DOC-001",
+      "doctorName": "Dr. Harpreet Kaur",
+      "specialty": "General Medicine",
+      "patientName": "Manas",
+      "slot": "10:00",
+      "reason": "Fever",
+      "village": "",
+      "phone": "",
+      "status": "CONFIRMED",
+      "bookedAt": "2026-05-20T06:47:35.798Z",
+      "date": "2026-05-20",
+      "notes": "",
+      "vitals": {},
+      "duration": null,
+      "completedAt": null
+    }
+  ],
   "records": [],
   "profiles": [],
   "sosAlerts": [],
@@ -297,6 +336,64 @@
   ],
   "consultations": [
     {
+      "id": "CON-1619",
+      "patientId": "USR-001",
+      "patientName": "Gurpreet Kaur",
+      "doctorId": "DOC-001",
+      "doctorName": "Dr. Harpreet Kaur",
+      "specialty": "General Medicine",
+      "mode": "chat",
+      "reason": "Hii",
+      "status": "ACTIVE",
+      "messages": [
+        {
+          "id": "1779263852105",
+          "sender": "USR-002",
+          "senderName": "Dr. Harpreet Kaur",
+          "text": "Hii",
+          "timestamp": "2026-05-20T07:57:32.105Z"
+        },
+        {
+          "id": "1779263944452",
+          "sender": "USR-001",
+          "senderName": "Gurpreet Kaur",
+          "text": "hello",
+          "timestamp": "2026-05-20T07:59:04.452Z"
+        }
+      ],
+      "createdAt": "2026-05-20T07:57:18.859Z",
+      "acceptedAt": "2026-05-20T07:57:24.087Z"
+    },
+    {
+      "id": "CON-1410",
+      "patientId": "USR-001",
+      "patientName": "Gurpreet Kaur",
+      "doctorId": "DOC-001",
+      "doctorName": "Dr. Harpreet Kaur",
+      "specialty": "General Medicine",
+      "mode": "chat",
+      "reason": "hello",
+      "status": "ACTIVE",
+      "messages": [
+        {
+          "id": "1779259749981",
+          "sender": "USR-002",
+          "senderName": "Dr. Harpreet Kaur",
+          "text": "hello",
+          "timestamp": "2026-05-20T06:49:09.981Z"
+        },
+        {
+          "id": "1779259757611",
+          "sender": "USR-001",
+          "senderName": "Gurpreet Kaur",
+          "text": "hii maam",
+          "timestamp": "2026-05-20T06:49:17.611Z"
+        }
+      ],
+      "createdAt": "2026-05-20T06:48:56.210Z",
+      "acceptedAt": "2026-05-20T06:49:05.700Z"
+    },
+    {
       "id": "CON-8103",
       "patientId": "USR-001",
       "patientName": "Gurpreet Kaur",
@@ -313,6 +410,13 @@
           "senderName": "Dr. Harpreet Kaur",
           "text": "Hello",
           "timestamp": "2026-04-23T08:21:25.337Z"
+        },
+        {
+          "id": "1779259704881",
+          "sender": "USR-002",
+          "senderName": "Dr. Harpreet Kaur",
+          "text": "hello",
+          "timestamp": "2026-05-20T06:48:24.882Z"
         }
       ],
       "createdAt": "2026-04-23T08:21:14.465Z",
@@ -661,7 +765,7 @@
       "location": "Nabha PHC",
       "org": "NPCB",
       "slots": 50,
-      "registered": 12,
+      "registered": 14,
       "description": "Free eye screening and spectacle distribution"
     },
     {
